@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UCTS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .hidden {
+            display: none;
+        }
+        .menu-button {
+            position: absolute;
+            top: 20px;
+            right: 20px; /* Cambiado a la derecha */
+            padding: 10px 20px;
+            font-size: 10000;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        select {
+            font-size: 1.2em;
+            padding: 0.5em;
+            margin-top: 1em;
+        }
+        .add-word-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        table {
+            width: 80%;
+            margin-top: 3em;
+            border-collapse: collapse;
+            max-height: 400px; /* Ajusta según el tamaño que desees para la tabla */
+            overflow-y: auto;
+            display: block;
+            
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 3px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        #data-table tr {
+            border: 1px solid black;
+            background-color: #f0f0f0; /* Agrega un color de fondo */
+        }
+        thead {
+            position: sticky;
+            top: 0;
+            background-color: #f2f2f2;
+            z-index: 1; /* Asegura que el encabezado esté por encima de las filas */
+        }
+        #add-word-form {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .hidden {
+            display: none;
+        }
+
+        
+    </style>
+    
+
+</head>
+
+
+<body>
+    <!-- Botón de Menú que muestra la sección de opciones -->
+    <button class="menu-button" onclick="mostrarSeccion('menu')">Menú</button>
+
+    <!-- Sección de la página principal -->
+    <div id="inicio">
+        <h1>UCTS</h1>
+        <button onclick="mostrarSeccion('menu')">Ir al Menú de lineas de investigacion</button>
+    </div>
+
+    <!-- Sección del menú de opciones -->
+    <div id="menu" class="hidden">
+        <h1>Lineas de investigacion</h1>
+        <select id="lineas-select" onchange="getFilteredData()">
+            <option value="">Selecciona una opción</option>
+            <option value="Cadena de suministro de alimentos, logística y distribución">Cadena de suministro de alimentos, logística y distribución</option>
+            <option value="Calidad microbiológica de aguas">Calidad microbiológica de aguas</option>
+            <option value="Alimentos funcionales y microbiota">Alimentos funcionales y microbiota</option>
+            <option value="Cuidado crítico">Cuidado crítico</option>
+            <option value="Enfermedades no transmisibles">Enfermedades no transmisibles</option>
+            <option value="Enfermedades infecciosas">Enfermedades infecciosas</option>
+        </select>
+    </div>
+
+        <!-- Botón para añadir una nueva palabra -->
+    <button class="add-word-button" onclick="openAddWordForm()">Añadir Palabra</button>
+
+    <!-- Formulario para añadir palabra -->
+    <div id="add-word-form" class="hidden">
+        <h2>Añadir Nueva Palabra</h2>
+        <label for="new-word">Palabra Clave:</label>
+        <input type="text" id="new-word" placeholder="Escribe la nueva palabra">
+        <br>
+        <br>
+        <button onclick="addNewWord()">Guardar</button>
+        <button onclick="closeAddWordForm()">Cancelar</button>
+    </div>
+
+
+    <!-- Sección para la Opción 1 -->
+    <div id="opcion1" class="hidden">
+        <h1>Palabras Claves</h1>
+        <!-- Agrega una tabla para mostrar los datos -->
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Líneas de investigación</th>
+                <th>Words</th>
+                
+                
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Las filas se agregarán aquí mediante JavaScript -->
+        </tbody>
+    </table>
+    </div>
+
+    <script>
+        // Función para mostrar la sección seleccionada y ocultar las demás
+        function mostrarSeccion(id) {
+            // Oculta todas las secciones
+            document.querySelectorAll("div").forEach(div => div.classList.add("hidden"));
+            // Muestra la sección seleccionada
+            document.getElementById(id).classList.remove("hidden");
+        }
+
+        // Función para navegar entre las opciones del menú
+        function navegar(select) {
+            const id = select.value;
+            if (id) {
+                mostrarSeccion(id);
+                select.value = "";  // Restablece el menú desplegable
+            }
+        }
+
+        // Muestra la página de inicio al cargar
+        mostrarSeccion("inicio");
+    </script>
+<script type="module" src="/web.js"></script>
+
+</body>
+</html>
